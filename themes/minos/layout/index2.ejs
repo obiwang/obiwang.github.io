@@ -1,0 +1,13 @@
+<section class="layout-wrap">
+  <div class="layout-wrap-inner">
+  	<%- page.layout %>
+    <% if(site.posts.length) { %>
+
+      <% site.posts.each(function(post){ %>
+      	<% if (post.lang === page.lang) { %>
+      		<%- partial('_partial/article', {post: post, index: true}) %>
+      	<% } %>
+   	  <% }) %>
+    <% } %>
+  </div>
+</section>
