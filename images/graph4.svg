@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="476px" height="476px" viewBox="0 0 476 476" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.7.2 (28276) - http://www.bohemiancoding.com/sketch -->
+    <title>graph4</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="0.25781251%" y1="49.7500002%" x2="101.257813%" y2="49.7500002%" id="linearGradient-1">
+            <stop stop-color="#3023AE" offset="0%"></stop>
+            <stop stop-color="#53A0FE" offset="47.5247532%"></stop>
+            <stop stop-color="#B4ED50" offset="100%"></stop>
+        </linearGradient>
+        <polygon id="path-2" points="327 34 327 120 184 120"></polygon>
+        <mask id="mask-3" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="143" height="86" fill="white">
+            <use xlink:href="#path-2"></use>
+        </mask>
+        <polygon id="path-4" points="327 34 327 120 184 120"></polygon>
+        <mask id="mask-5" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="143" height="86" fill="white">
+            <use xlink:href="#path-4"></use>
+        </mask>
+        <polygon id="path-6" points="327 34 327 120 184 120"></polygon>
+        <mask id="mask-7" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="143" height="86" fill="white">
+            <use xlink:href="#path-6"></use>
+        </mask>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="graph4">
+            <g id="Tn" transform="translate(28.000000, 339.000000)">
+                <g id="axis3">
+                    <g>
+                        <path d="M0,120 L421,120" id="Line" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <path id="Line-decoration-1" d="M410.2,123 L421,120 L410.2,117" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <path d="M76,120 L76,0" id="Line" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <path id="Line-decoration-1" d="M79,10.8 L76,0 L73,10.8" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <text id="tp" font-family="Georgia-Italic, Georgia" font-size="18" font-style="italic" font-weight="normal" fill="#4A4A4A">
+                            <tspan x="399.24707" y="108">Tn</tspan>
+                        </text>
+                        <use id="anim" stroke="#4990E2" mask="url(#mask-3)" stroke-width="2" fill="url(#linearGradient-1)" xlink:href="#path-2"></use>
+                    </g>
+                </g>
+            </g>
+            <g id="Tm" transform="translate(28.000000, 172.000000)">
+                <g id="axis3">
+                    <g>
+                        <path d="M0,120 L421,120" id="Line" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <path id="Line-decoration-1" d="M410.2,123 L421,120 L410.2,117" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <path d="M76,120 L76,0" id="Line" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <path id="Line-decoration-1" d="M79,10.8 L76,0 L73,10.8" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <text id="tp" font-family="Georgia-Italic, Georgia" font-size="18" font-style="italic" font-weight="normal" fill="#4A4A4A">
+                            <tspan x="394.035156" y="108">Tm</tspan>
+                        </text>
+                        <use id="anim" stroke="#4990E2" mask="url(#mask-5)" stroke-width="2" fill="url(#linearGradient-1)" xlink:href="#path-4"></use>
+                    </g>
+                </g>
+            </g>
+            <g id="Tp" transform="translate(28.000000, 4.000000)">
+                <g id="axis3">
+                    <g>
+                        <path d="M0,120 L421,120" id="Line" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <path id="Line-decoration-1" d="M410.2,123 L421,120 L410.2,117" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <path d="M76,120 L76,0" id="Line" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <path id="Line-decoration-1" d="M79,10.8 L76,0 L73,10.8" stroke="#979797" stroke-width="2" stroke-linecap="square"></path>
+                        <text id="tp" font-family="Georgia-Italic, Georgia" font-size="18" font-style="italic" font-weight="normal" fill="#4A4A4A">
+                            <tspan x="399.458008" y="108">Tp</tspan>
+                        </text>
+                        <use id="anim" stroke="#4990E2" mask="url(#mask-7)" stroke-width="2" fill="url(#linearGradient-1)" xlink:href="#path-6"></use>
+                    </g>
+                </g>
+            </g>
+            <text id="t" font-family="Georgia-Italic, Georgia" font-size="18" font-style="italic" font-weight="normal" fill="#4A4A4A">
+                <tspan x="290" y="41">t</tspan>
+            </text>
+            <path d="M289,459.5 L289,45.5" id="Line-Copy-4" stroke="#979797" stroke-width="2" stroke-linecap="square" stroke-dasharray="5"></path>
+            <path d="M110.5,457.5 L212.5,124.5" id="Line-Copy-6" stroke="#979797" stroke-linecap="square" stroke-dasharray="5"></path>
+            <path d="M67.5,292.5 L212.5,123.5" id="Line-Copy-5" stroke="#979797" stroke-linecap="square" stroke-dasharray="5"></path>
+            <path d="M213,120 L213,128" id="seg" stroke="#D0011B" stroke-width="2" stroke-linecap="square"></path>
+            <path d="M110,455 L110,463" id="seg-copy-2" stroke="#D0011B" stroke-width="2" stroke-linecap="square"></path>
+            <path d="M67,287 L67,295" id="seg-copy" stroke="#D0011B" stroke-width="2" stroke-linecap="square"></path>
+            <text id="tb" font-family="Georgia-Italic, Georgia" font-size="18" font-style="italic" font-weight="normal" fill="#4A4A4A">
+                <tspan x="53" y="278">t</tspan>
+                <tspan x="59.2490234" y="278" font-size="14">b</tspan>
+            </text>
+            <text id="tb'" font-family="Georgia-Italic, Georgia" font-size="18" font-style="italic" font-weight="normal" fill="#4A4A4A">
+                <tspan x="117" y="450">t</tspan>
+                <tspan x="123.249023" y="450" font-size="14">b'</tspan>
+            </text>
+        </g>
+    </g>
+</svg>
