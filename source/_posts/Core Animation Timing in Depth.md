@@ -2,18 +2,20 @@ title: "Core Animation Timing in Depth"
 layout: "post"
 lang: "en"
 date: 2016-05-06 13:30:00
+permalink: core_animation_timing
+
 tags:
 - Core Animation
+
 categories:
 - iOS
-permalink: core_animation_timing
 ---
 
-The Core Animation timing model is described by the `CAMediaTiming` protocol and inherited by the `CAAnimation` class and `CALayer` class. 
+The Core Animation timing model is described by the `CAMediaTiming` protocol and inherited by the `CAAnimation` class and the `CALayer` class. 
 
-The timing model in `CAAnimation` is easy to understand. There is a great visual descritpion [here](http://ronnqvi.st/controlling-animation-timing/) by David Rönnqvist. There is even a [cheat sheet](http://ronnqvi.st/images/CAMediaTiming%20cheat%20sheet.pdf) to help you to get better understanding with different situations.
+The timing model in `CAAnimation` is easy to understand. There is a great visual descritpion [here](http://ronnqvi.st/controlling-animation-timing/) by *David Rönnqvist*. There is even a [cheat sheet](http://ronnqvi.st/images/CAMediaTiming%20cheat%20sheet.pdf) to help you to get better understanding with different situations.
 
-Let's look at the timing model in `CALayer`.
+Let's focus on the timing model in `CALayer`.
 
 ## Timing in CALayer
 
@@ -29,15 +31,15 @@ A layer define a timespace relative to its superlayer, simliar to a relative coo
 t = (t_p - beginTime) \times speed + \mathit{timeOffset} \mspace{20mu} (1)
 \end{equation}
 
-There are two kinds of local time, `active local time` and `basic local time`. Apple just refer the name without further description. But, for now, you can just forget about basic local time, and consider the active local time is the local time.
+There are two kinds of local time, `active local time` and `basic local time`. Apple just refer the name without further description. But, for now, you can just forget about basic local time, and consider the active local time is the local time. In the following paragraphs, *local time* is refering to the `active local time` at most time.
 
 ### Speed
 > Specifies how time is mapped to receiver’s time space from the parent time space.
 
-Let's look back at equation `(1)`. It is a linear function whose slope is the `speed`. When beginTime is 0: 
+Let's look at equation `(1)`. It is a linear function whose slope is the `speed`. When beginTime is 0: 
 $$ t = t_p \times speed + \mathit{timeOffset} $$
 
-When $t_p$ is 0, t should be timeOffset. The function graph is illustrated below.
+When $t_p$ is 0, t should be equal to timeOffset. The function graph is illustrated below.
 
 ![Figure 1, beginTime is 0](/images/graph1.svg)
 
@@ -52,20 +54,20 @@ The `beginTime` and the `timeOffset` both contribute to the final starting offse
 
 ### active local time vs. basic local time
 
-Though there is no actual defination of `basic local time`, this part is just my guessing. You can skip it. You don't have to know anything about the `basic local time` since CA has done for you. But it can help you get better understanding of Core Animation. In the [CAMediaTiming Protocol Reference](https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAMediaTiming_protocol/index.html):
+Though there is no actual defination of `basic local time`, this part is just my guess. Skip it won't make you lose anything since CA has done everything for you. But it can help you get better understanding of Core Animation. From the [CAMediaTiming Protocol Reference](https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAMediaTiming_protocol/index.html):
 > The conversion from parent time to local time has two stages:
 0. Conversion to “active local time”. This includes the point at which the object appears in the parent object's timeline and how fast it plays relative to the parent.
 0. Conversion from “active local time” to “basic local time”. The timing model allows for objects to repeat their basic duration multiple times and, optionally, to play backwards before repeating.
 
-We already know stage 1, which is equation `(1)`. And we can see that stage 2 affects animaiton's  repeating and reverse. We can guess that, the `basic local time` should be the time of one iteration of the animation. So that Core Animation can calcuate the animation value at any `active local time`. The local time of an animation with repeating and reverse is illustrated below.
+We already know what stage 1 is, which is exactly equation `(1)`. Aslo, we can see that stage 2 affects animaiton's  repeating and reverse. We can guess that, the `basic local time` should be the time of one iteration of the animation. So that Core Animation can calcuate the animation value at any `active local time`. The local time of an animation with repeating and reverse is illustrated below.
 
 ![Figure 3](/images/graph3.svg)
 
 ## Timing in Action
-The biggest difference is that once you add an `CAAnimation` to a layer, you can't change its property, the animation is readonly. But you can manipulate some of the `CAMediaTiming` properties in the layer. The *some* of the properties are: `beginTime`, `timeOffset`, and `speed`. You can imagine that the animation is a movie, the layer is a player. Once you have created a movie, you can play it by adding to the layer. You can't edit the movie during playing since it is just a player, not a recoreder or something. But you can pause, fast faward, rewind or start from any position.
+The biggest difference, between `CAAnimation` and `CALayer` in `CAMediaTiming`, is that once an `CAAnimation` is added to a layer, it is readonly and can not be changed. But you can manipulate some of the `CAMediaTiming` properties in the layer. That *some* of the properties are: `beginTime`, `timeOffset`, and `speed`. Just imagine the animation as a movie, and the layer as a player. Once the movie have been created, it can be added to the layer. The player cannot edit the movie during playing since it is just a player, not a recoreder or something else. It can pause, fast faward, rewind or start from any position. Let's see some examples.
 
 ### How to play an animation
-An animation is not played immediately after being added to a layer, it will be scheduled at the next run loop. If the `beginTime` is not specified in the animation object, the layer will set it to the current local time after the animation started. If you want to do something when the animation started, you can set to the animation's delegate property with an NSObject that implements `animationDidStart(anim: CAAnimation)` method. If the layer's speed is set to 0 prior the animation have started, the animation will never start without changing the layer's speed to a nonzero value.
+To play an animation, just simply add it to a layer. The animation is not played immediately, it will be scheduled at  next run loop. If the `beginTime` is not specified in the animation object, the layer will set it to the current local time after the animation start. If you want to do something at that moment, you can set to the animation's delegate property with an NSObject that implements `animationDidStart(anim: CAAnimation)` method. If the layer's speed is set to 0 prior to the animation has started, the animation will never start without changing the layer's speed to a nonzero value.
 
 ### How to pause an animation
 Apple has documented how to [Pausing and Resuming Animations](https://developer.apple.com/library/ios/documentation/Cocoa/Conceptual/CoreAnimation_guide/AdvancedAnimationTricks/AdvancedAnimationTricks.html#//apple_ref/doc/uid/TP40004514-CH8-SW15). Let's see why it should code this way.
@@ -103,54 +105,60 @@ func resumeLayer(layer:CALayer) {
 }
 ```
 
-1. Retrieve the local time when paused stored in `timeOffset`
+1. Retrieve the local time at the time paused, from layer's `timeOffset`
 2. Set the layer's speed back to resume the animation.
-3. Set the new `beginTime` so that the animation will resume from paused time.
-    1. In equation`(2)`, with `timeOffset` is 0 and speed is 1.0, the new `beginTime` should be $t_p - t$
-    2. Reset layer's `timeOffset` and `beginTime` so that the `convertTime` will return the *scaled* $t_p$, because there is no offset between local time and parent time.
+3. Set the new `beginTime` so that the animation can resume from where left:
+    1. In equation`(2)`, with `timeOffset` equals 0 and speed equals 1.0, the new `beginTime` should be $t_p - t$
+    2. Reset layer's `timeOffset` and `beginTime` to clear the offset between local time and parent time. And `layer.convertTime(CACurrentMediaTime(), fromLayer:nil)` now returns the *scaled* $t_p$.
     3. The $t$ should be the same as the local time when paused, because the local time has not gone any further.
 
-It is not easy to understand what time it is *now* and *then*. Time doesn't stop and wait for anyone. Let's see a more complicated situation.
+It is not easy to understand what time it is *now* and *then*. Time doesn't stop and wait for anyone. Let's see a more complicated example.
 
 ### How to change the layer's speed during animating
 
-Suppose we have a animating layer with its `speed` at $m$, then change its speed to $n$. What properties should we adjust?
+Suppose we have a animating layer with its `speed` at $m$, then change the speed to $n$ without breaking anything. How to achieve that?
 
-Let's look at equation`(1)` again
+Let's analyze equation`(1)` again
 \begin{equation}
 t = (t_p - beginTime) \times speed + \mathit{timeOffset} \mspace{20mu} (1)
 \end{equation}
 
-* At the time speed changes, we are not going to change the animation state, which means the local time are the same between both speed at that time. $t$ is not changed.
-* timeOffset is not affecting by the speed. $timeOffset$ is not changed.
+* At the time when speed changes, we are not going to change the animation state, which means the local time are the same between both speed at that time, which means $t$ is not changed.
+* `timeOffset` is not affected by the speed. $timeOffset$ is not changed.
 * $t_p$ is not changed.
-* $speed$ is known.
+* $speed$ is changing from $m$ to $n$.
 
-So the only things to do is to set the new `beginTime`.
+The only thing to do is setting a new `beginTime`.
 
-![Figure 4](/images/graph4.svg)
-
-Apply speed $m$ and $n$ to equation`(1)` we get two equations($t_b'$ is what we need):
+Apply speed $m$ and $n$ to equation`(1)` we get two equations(beginTime' $t_b'$ is what we want):
 \begin{align}
 t = (t_p - t_b) \times m + \mathit{timeOffset} \newline
 t = (t_p - t_b') \times n + \mathit{timeOffset}
 \end{align}
 
-Combine both we can get this:
+Combine both:
 \begin{align}
 (t_p - t_b) \times m = (t_p - t_b') \times n
 \end{align}
 
-So the new `beginTime` $t_b'$ should be:
+The new `beginTime` $t_b'$ should be:
 \begin{align}
 t_b' = t_p - (t_p -t_b) \times \frac{m}{n}\
 \end{align}
 
-The $t_b$ is simply layer.beginTime. The $t_p$ is a little tricky. We can reset layer's `timeOffset` and `beginTime` to get the *scaled* $t_p$, then divide by the old speed, we will get the real $t_p$.
+* $t_b$ is simply layer.beginTime. 
+* $t_p$ is a little tricky. We can reset layer's `timeOffset` and `beginTime` to get the *scaled* $t_p$, then divide by the scale which is the old speed $m$.
 
-### Keys to solve timing issue
-* Use the equation
-* Make sure which changes and which does not
-* local time usually represent the current state of animation
-* set layer's `timeOffset` or `beginTime` to fast forward or rewind
-* reset layer's `timeOffset` and `beginTime` to get the *scaled* parent time
+With all these done, set $t_b'$ to the layer's beginTime. Problem solved! Playgrounds can be found [HERE](https://github.com/obiwang/CoreAnimationPlaygrounds)
+
+The graph is illustrated below. The animation triangles are the same position while the `beginTime`s are different.
+
+![Figure 4](/images/graph4.svg)
+
+### Conclusion
+Core Animation's timing model is not easy to understand, especially when animation is running. There are some key points to solve different issues.
+* **Use the equation**
+* Analyze which changes and which does not
+* Local time usually represent the current state of animation
+* Set layer's `timeOffset` or `beginTime` to fast forward or rewind
+* Reset layer's `timeOffset` and `beginTime` to get the *scaled* parent time
