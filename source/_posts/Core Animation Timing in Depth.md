@@ -13,7 +13,7 @@ categories:
 
 The Core Animation timing model is described by the `CAMediaTiming` protocol and inherited by the `CAAnimation` class and the `CALayer` class. 
 
-The timing model in `CAAnimation` is easy to understand. There is a great visual descritpion [here](http://ronnqvi.st/controlling-animation-timing/) by *David Rönnqvist*. There is even a [cheat sheet](http://ronnqvi.st/images/CAMediaTiming%20cheat%20sheet.pdf) to help you to get better understanding with different situations.
+The timing model in `CAAnimation` is easy to understand. There is a great visual description [here](http://ronnqvi.st/controlling-animation-timing/) by *David Rönnqvist*. There is even a [cheat sheet](http://ronnqvi.st/images/CAMediaTiming%20cheat%20sheet.pdf) to help you to get better understanding with different situations.
 
 Let's focus on the timing model in `CALayer`.
 
@@ -25,13 +25,13 @@ According to Apple's [CAMediaTiming Protocol Reference](https://developer.apple.
 
 > The CAMediaTiming protocol models a hierarchical timing system, with each object describing the mapping of time values from the object's parent to local time.
 
-A layer define a timespace relative to its superlayer, simliar to a relative coordinate space. To convert from parent time $t_p$ to active local time $t$, there is an equation:
+A layer defines a timespace relative to its superlayer, similar to a relative coordinate space. To convert from parent time $t_p$ to active local time $t$, there is an equation:
 
 \begin{equation}
 t = (t_p - beginTime) \times speed + \mathit{timeOffset} \mspace{20mu} (1)
 \end{equation}
 
-There are two kinds of local time, `active local time` and `basic local time`. Apple just refer the name without further description. But, for now, you can just forget about basic local time, and consider the active local time is the local time. In the following paragraphs, *local time* is refering to the `active local time` at most time.
+There are two kinds of local time, `active local time` and `basic local time`. Apple just referring the name without further description. But, for now, you can just forget about basic local time, and consider the active local time is the local time. In the following paragraphs, *local time* is referring to the `active local time` at most time.
 
 ### Speed
 > Specifies how time is mapped to receiver’s time space from the parent time space.
@@ -54,17 +54,17 @@ The `beginTime` and the `timeOffset` both contribute to the final starting offse
 
 ### active local time vs. basic local time
 
-Though there is no actual defination of `basic local time`, this part is just my guess. Skip it won't make you lose anything since CA has done everything for you. But it can help you get better understanding of Core Animation. From the [CAMediaTiming Protocol Reference](https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAMediaTiming_protocol/index.html):
+Though there is no actual definition of `basic local time`, this part is just my guess. Skip it won't make you lose anything since CA has done everything for you. But it can help you get better understanding of Core Animation. From the [CAMediaTiming Protocol Reference](https://developer.apple.com/library/ios/documentation/GraphicsImaging/Reference/CAMediaTiming_protocol/index.html):
 > The conversion from parent time to local time has two stages:
 0. Conversion to “active local time”. This includes the point at which the object appears in the parent object's timeline and how fast it plays relative to the parent.
 0. Conversion from “active local time” to “basic local time”. The timing model allows for objects to repeat their basic duration multiple times and, optionally, to play backwards before repeating.
 
-We already know what stage 1 is, which is exactly equation `(1)`. Aslo, we can see that stage 2 affects animaiton's  repeating and reverse. We can guess that, the `basic local time` should be the time of one iteration of the animation. So that Core Animation can calcuate the animation value at any `active local time`. The local time of an animation with repeating and reverse is illustrated below.
+We already know what stage 1 is, which is exactly equation `(1)`. Also, we can see that stage 2 affects animation's  repeating and reverse. We can guess that, the `basic local time` should be the time of one iteration of the animation. So that Core Animation can calculate the animation value at any `active local time`. The local time of an animation with repeating and reverse is illustrated below.
 
 ![Figure 3](/images/graph3.svg)
 
 ## Timing in Action
-The biggest difference, between `CAAnimation` and `CALayer` in `CAMediaTiming`, is that once an `CAAnimation` is added to a layer, it is readonly and can not be changed. But you can manipulate some of the `CAMediaTiming` properties in the layer. That *some* of the properties are: `beginTime`, `timeOffset`, and `speed`. Just imagine the animation as a movie, and the layer as a player. Once the movie have been created, it can be added to the layer. The player cannot edit the movie during playing since it is just a player, not a recoreder or something else. It can pause, fast faward, rewind or start from any position. Let's see some examples.
+The biggest difference, between `CAAnimation` and `CALayer` in `CAMediaTiming`, is that once an `CAAnimation` is added to a layer, it is readonly and cannot be changed. But you can manipulate some of the `CAMediaTiming` properties in the layer. That *some* of the properties are: `beginTime`, `timeOffset`, and `speed`. Just imagine the animation as a movie, and the layer as a player. Once the movie has been created, it can be added to the layer. The player cannot edit the movie during playing since it is just a player, not a recorder or something else. It can pause, fast forward, rewind or start from any position. Let's see some examples.
 
 ### How to play an animation
 To play an animation, just simply add it to a layer. The animation is not played immediately, it will be scheduled at  next run loop. If the `beginTime` is not specified in the animation object, the layer will set it to the current local time after the animation start. If you want to do something at that moment, you can set to the animation's delegate property with an NSObject that implements `animationDidStart(anim: CAAnimation)` method. If the layer's speed is set to 0 prior to the animation has started, the animation will never start without changing the layer's speed to a nonzero value.
@@ -88,7 +88,7 @@ func pauseLayer(layer:CALayer) {
 
 #### Resume the animation
 
-Accoring to equation `(1)`, we can transform it to:
+According to equation `(1)`, we can transform it to:
 
 \begin{equation}
 beginTime = t_p - \frac{t - \mathit{timeOffset}}{speed}\ \mspace{20mu} (2)
@@ -116,9 +116,9 @@ It is not easy to understand what time it is *now* and *then*. Time doesn't stop
 
 ### How to change the layer's speed during animating
 
-Suppose we have a animating layer with its `speed` at $m$, then change the speed to $n$ without breaking anything. How to achieve that?
+Suppose we have an animating layer with its `speed` at $m$, then change the speed to $n$ without breaking anything. How to achieve that?
 
-Let's analyze equation`(1)` again
+Let's analyse equation`(1)` again
 \begin{equation}
 t = (t_p - beginTime) \times speed + \mathit{timeOffset} \mspace{20mu} (1)
 \end{equation}
@@ -158,7 +158,7 @@ The graph is illustrated below. The animation triangles are the same position wh
 ### Conclusion
 Core Animation's timing model is not easy to understand, especially when animation is running. There are some key points to solve different issues.
 * **Use the equation**
-* Analyze which changes and which does not
+* Analyse which changes and which does not
 * Local time usually represent the current state of animation
 * Set layer's `timeOffset` or `beginTime` to fast forward or rewind
 * Reset layer's `timeOffset` and `beginTime` to get the *scaled* parent time
