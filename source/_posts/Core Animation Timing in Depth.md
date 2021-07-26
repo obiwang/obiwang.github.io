@@ -13,7 +13,7 @@ categories:
 
 The Core Animation timing model is described by the `CAMediaTiming` protocol and inherited by the `CAAnimation` class and the `CALayer` class. 
 
-The timing model in `CAAnimation` is easy to understand. There is a great visual description [here](http://ronnqvi.st/controlling-animation-timing/) by *David Rönnqvist*. There is even a [cheat sheet](http://ronnqvi.st/images/CAMediaTiming%20cheat%20sheet.pdf) to help you to get better understanding with different situations.
+The timing model in `CAAnimation` is easy to understand. There is a great visual description [here](http://ronnqvi.st/controlling-animation-timing) by *David Rönnqvist*. There is even a [cheat sheet](http://ronnqvi.st/images/CAMediaTiming%20cheat%20sheet.pdf) to help you to get better understanding with different situations.
 
 Let's focus on the timing model in `CALayer`.
 
